@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ApexMotors — Showroom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --card: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --text: #f5f5f0;
+      --muted: #888;
+      --accent: #e63a2e;
+    }
+    body.light {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --border: rgba(0,0,0,0.1);
+      --text: #111111;
+      --muted: #666;
+      --accent: #e63a2e;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 4px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links li a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .nav-links li a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 14px; }
+    .theme-label { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: 0.5px; }
+    .theme-btn {
+      width: 46px;
+      height: 26px;
+      background: var(--border);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 13px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+      outline: none;
+    }
+    .theme-btn::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: left 0.3s;
+    }
+    body.light .theme-btn::after { left: 24px; }
+    .cta-nav {
+      padding: 9px 22px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.2s;
+    }
+    .cta-nav:hover { opacity: 0.9; }
+
+    /* HERO */
+    .hero {
+      padding: 80px 48px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 88px;
+      line-height: 0.92;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 400px;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 15px 36px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-outline {
+      padding: 15px 36px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+    .hero-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, border-color 0.3s;
+      overflow: hidden;
+    }
+
+    /* STATS */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      padding: 28px 48px;
+      background: var(--bg);
+      transition: background 0.3s;
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      color: var(--text);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .stat-number span { color: var(--accent); }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* SECTION */
+    .section {
+      padding: 60px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 28px;
+    }
+    .section-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 1px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .see-all { font-size: 12px; color: var(--accent); cursor: pointer; font-weight: 500; letter-spacing: 0.5px; text-decoration: none; }
+
+    /* FILTERS */
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+    .filter-chip {
+      padding: 7px 18px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover { border-color: var(--muted); color: var(--text); }
+    .filter-chip.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* CARS GRID */
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) { .cars-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) {
+      .cars-grid { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+    }
+
+    .car-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s, background 0.3s;
+      cursor: pointer;
+    }
+    .car-card:hover { border-color: var(--muted); transform: translateY(-3px); }
+    .car-img {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+    }
+    .badge-new { background: var(--accent); color: #fff; }
+    .badge-usado { background: rgba(128,128,128,0.15); color: var(--muted); border: 1px solid var(--border); }
+    .car-info { padding: 20px; }
+    .car-brand { font-size: 10px; color: var(--muted); font-weight: 500; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+    .car-name { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+    .car-specs { display: flex; gap: 14px; margin-bottom: 14px; }
+    .spec { font-size: 11px; color: var(--muted); }
+    .spec strong { color: var(--text); font-weight: 500; }
+    .car-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .car-price { font-size: 19px; font-weight: 500; color: var(--text); }
+    .car-price small { font-size: 11px; color: var(--muted); font-weight: 300; display: block; margin-top: -2px; }
+    .buy-btn {
+      padding: 8px 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s;
+    }
+    .buy-btn:hover { opacity: 0.85; }
+
+    /* BANNER */
+    .banner {
+      margin: 0;
+      padding: 60px 48px;
+      background: var(--accent);
+      text-align: center;
+    }
+    .banner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .banner p { color: rgba(255,255,255,0.8); font-size: 15px; font-weight: 300; margin-bottom: 28px; }
+    .banner-btn {
+      padding: 14px 40px;
+      background: #fff;
+      color: var(--accent);
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 36px 48px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--text); }
+    .footer-logo span { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">APEX<span>MOTORS</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Novos</a></li>
+    <li><a href="#">Usados</a></li>
+    <li><a href="#">Financiamento</a></li>
+    <li><a href="#">Seguros</a></li>
+    <li><a href="#">Sobre</a></li>
+  </ul>
+  <div class="nav-actions">
+    <span class="theme-label" id="theme-label">Escuro</span>
+    <button class="theme-btn" id="theme-toggle" title="Alternar tema" aria-label="Alternar modo claro/escuro"></button>
+    <button class="cta-nav">Agendar Test Drive</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <p class="hero-tag">Showroom Exclusivo 2026</p>
+    <h1>DIRIJA O<br>SEU <span>SONHO</span></h1>
+    <p>Encontre o carro perfeito com as melhores condições de financiamento do mercado. Novos e seminovos rigorosamente selecionados.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Ver Catálogo Completo</button>
+      <button class="btn-outline">Simular Financiamento</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <svg width="360" height="200" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#e63a2e"/>
+          <stop offset="100%" stop-color="#a02018"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="180" cy="168" rx="160" ry="12" fill="rgba(0,0,0,0.18)"/>
+      <path d="M44 128 L68 82 L124 56 L236 56 L292 82 L316 128 Z" fill="url(#bodyGrad)"/>
+      <path d="M88 82 L118 58 L242 58 L276 82 Z" fill="rgba(120,200,255,0.28)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <rect x="42" y="126" width="276" height="26" rx="5" fill="url(#bodyGrad)"/>
+      <rect x="36" y="148" width="288" height="14" rx="4" fill="#8c1e16"/>
+      <circle cx="95" cy="158" r="22" fill="#1a1a1a" stroke="#333" stroke-width="2.5"/>
+      <circle cx="95" cy="158" r="14" fill="#222" stroke="#555" stroke-width="1.5"/>
+      <circle cx="95" cy="158" r="6" fill="#e63a2e"/>
+      <circle cx="265" cy="158" r="22" fill="#1a1a1a" stroke="#333" stroke-width="2.5"/>
+      <circle cx="265" cy="158" r="14" fill="#222" stroke="#555" stroke-width="1.5"/>
+      <circle cx="265" cy="158" r="6" fill="#e63a2e"/>
+      <ellipse cx="300" cy="116" rx="16" ry="9" fill="#ffdd55" opacity="0.9"/>
+      <ellipse cx="60" cy="116" rx="16" ry="9" fill="#ff6633" opacity="0.7"/>
+      <line x1="180" y1="165" x2="180" y2="172" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="180" y="110" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-size="10" font-family="'DM Sans',sans-serif" letter-spacing="4" font-weight="500">APEX MOTORS</text>
+    </svg>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">2<span>K+</span></div>
+    <div class="stat-label">Veículos disponíveis</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">15<span>%</span></div>
+    <div class="stat-label">Entrada mínima</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">96<span>h</span></div>
+    <div class="stat-label">Aprovação rápida</div>
+  </div>
+</div>
+
+<div style="background: var(--bg); transition: background 0.3s;">
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <p class="section-sub">Nossa frota</p>
+        <h2 class="section-title">Em Destaque</h2>
+      </div>
+      <a href="#" class="see-all">Ver todos →</a>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-chip active" onclick="setFilter(this)">Todos</button>
+      <button class="filter-chip" onclick="setFilter(this)">SUVs</button>
+      <button class="filter-chip" onclick="setFilter(this)">Sedans</button>
+      <button class="filter-chip" onclick="setFilter(this)">Elétricos</button>
+      <button class="filter-chip" onclick="setFilter(this)">Esportivos</button>
+      <button class="filter-chip" onclick="setFilter(this)">Pickups</button>
+    </div>
+
+    <div class="cars-grid">
+
+      <!-- Card 1 -->
+      <div class="car-card">
+        <div class="car-img">
+          <span class="badge badge-new">Novo</span>
+          <svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="86" rx="78" ry="6" fill="rgba(0,0,0,0.12)"/>
+            <path d="M20 64 L33 38 L62 24 L118 24 L147 38 L160 64 Z" fill="#2563eb"/>
+            <path d="M38 38 L58 26 L122 26 L145 38 Z" fill="rgba(180,220,255,0.35)" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+            <rect x="18" y="62" width="144" height="15" rx="3" fill="#1d4ed8"/>
+            <rect x="14" y="74" width="152" height="9" rx="2" fill="#1e3a8a"/>
+            <circle cx="44" cy="80" r="11" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <circle cx="44" cy="80" r="6" fill="#1e3a8a"/>
+            <circle cx="136" cy="80" r="11" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <circle cx="136" cy="80" r="6" fill="#1e3a8a"/>
+            <ellipse cx="150" cy="55" rx="9" ry="5.5" fill="#ffdd55" opacity="0.85"/>
+          </svg>
+        </div>
+        <div class="car-info">
+          <p class="car-brand">Toyota</p>
+          <p class="car-name">Corolla GR Sport</p>
+          <div class="car-specs">
+            <span class="spec"><strong>2.0</strong> flex</span>
+            <span class="spec"><strong>177</strong> cv</span>
+            <span class="spec"><strong>0</strong> km</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">R$ 179.900<small>ou 84x de R$ 2.890</small></div>
+            <button class="buy-btn">Quero este</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="car-card">
+        <div class="car-img">
+          <span class="badge badge-new">Novo</span>
+          <svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="86" rx="78" ry="6" fill="rgba(0,0,0,0.12)"/>
+            <path d="M16 66 L30 36 L58 22 L122 22 L152 36 L164 66 Z" fill="#111"/>
+            <path d="M35 36 L56 24 L124 24 L150 36 Z" fill="rgba(100,200,255,0.22)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+            <rect x="14" y="64" width="152" height="15" rx="3" fill="#0f0f0f"/>
+            <rect x="10" y="76" width="160" height="9" rx="2" fill="#1a1a1a"/>
+            <circle cx="42" cy="82" r="11" fill="#222" stroke="#444" stroke-width="1.5"/>
+            <circle cx="42" cy="82" r="6" fill="#e63a2e"/>
+            <circle cx="138" cy="82" r="11" fill="#222" stroke="#444" stroke-width="1.5"/>
+            <circle cx="138" cy="82" r="6" fill="#e63a2e"/>
+            <ellipse cx="152" cy="54" rx="9" ry="5.5" fill="#ffdd55" opacity="0.85"/>
+            <text x="90" y="52" text-anchor="middle" fill="rgba(255,255,255,0.1)" font-size="8" font-family="sans-serif" letter-spacing="3">BMW</text>
+          </svg>
+        </div>
+        <div class="car-info">
+          <p class="car-brand">BMW</p>
+          <p class="car-name">320i M Sport</p>
+          <div class="car-specs">
+            <span class="spec"><strong>2.0T</strong> turbo</span>
+            <span class="spec"><strong>184</strong> cv</span>
+            <span class="spec"><strong>0</strong> km</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">R$ 289.950<small>ou 84x de R$ 4.650</small></div>
+            <button class="buy-btn">Quero este</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="car-card">
+        <div class="car-img">
+          <span class="badge badge-usado">Usado</span>
+          <svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="86" rx="78" ry="6" fill="rgba(0,0,0,0.12)"/>
+            <path d="M18 64 L32 38 L62 24 L118 24 L148 38 L162 64 Z" fill="#15803d"/>
+            <path d="M38 38 L60 26 L120 26 L146 38 Z" fill="rgba(200,255,200,0.22)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+            <rect x="16" y="62" width="148" height="15" rx="3" fill="#166534"/>
+            <rect x="12" y="74" width="156" height="9" rx="2" fill="#14532d"/>
+            <circle cx="44" cy="80" r="11" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <circle cx="44" cy="80" r="6" fill="#15803d"/>
+            <circle cx="136" cy="80" r="11" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <circle cx="136" cy="80" r="6" fill="#15803d"/>
+            <ellipse cx="150" cy="54" rx="9" ry="5.5" fill="#ffdd55" opacity="0.75"/>
+          </svg>
+        </div>
+        <div class="car-info">
+          <p class="car-brand">Jeep</p>
+          <p class="car-name">Compass Limited</p>
+          <div class="car-specs">
+            <span class="spec"><strong>2.0D</strong> diesel</span>
+            <span class="spec"><strong>170</strong> cv</span>
+            <span class="spec"><strong>38k</strong> km</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">R$ 189.900<small>ou 60x de R$ 3.450</small></div>
+            <button class="buy-btn">Quero este</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="car-card">
+        <div class="car-img">
+          <span class="badge badge-new">Novo</span>
+          <svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="86" rx="78" ry="6" fill="rgba(0,0,0,0.12)"/>
+            <path d="M14 68 L24 38 L52 20 L128 20 L156 38 L166 68 Z" fill="#7c3aed"/>
+            <path d="M30 38 L50 22 L130 22 L154 38 Z" fill="rgba(220,200,255,0.25)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+            <rect x="12" y="66" width="156" height="15" rx="3" fill="#6d28d9"/>
+            <rect x="8" y="78" width="164" height="9" rx="2" fill="#4c1d95"/>
+            <circle cx="40" cy="84" r="11" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/>
+            <circle cx="40" cy="84" r="6" fill="#7c3aed"/>
+            <circle cx="140" cy="84" r="11" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/>
+            <circle cx="140" cy="84" r="6" fill="#7c3aed"/>
+            <ellipse cx="152" cy="56" rx="9" ry="5.5" fill="#ffdd55" opacity="0.85"/>
+            <text x="90" y="50" text-anchor="middle" fill="rgba(255,255,255,0.12)" font-size="7" font-family="sans-serif" letter-spacing="3">AUDI</text>
+          </svg>
+        </div>
+        <div class="car-info">
+          <p class="car-brand">Audi</p>
+          <p class="car-name">A3 Sedan Prestige</p>
+          <div class="car-specs">
+            <span class="spec"><strong>1.4T</strong> turbo</span>
+            <span class="spec"><strong>150</strong> cv</span>
+            <span class="spec"><strong>0</strong> km</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">R$ 219.990<small>ou 84x de R$ 3.530</small></div>
+            <button class="buy-btn">Quero este</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="car-card">
+        <div class="car-img">
+          <span class="badge badge-usado">Usado</span>
+          <svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="86" rx="78" ry="6" fill="rgba(0,0,0,0.12)"/>
+            <path d="M12 68 L22 36 L48 18 L132 18 L158 36 L168 68 Z" fill="#b45309"/>
+            <path d="M28 36 L46 20 L134 20 L156 36 Z" fill="rgba(255,220,150,0.2)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+            <rect x="10" y="66" width="160" height="15" rx="3" fill="#92400e"/>
+            <rect x="6" y="78" width="168" height="9" rx="2" fill="#78350f"/>
+            <circle cx="38" cy="84" r="11" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/>
+            <circle cx="38" cy="84" r="6" fill="#b45309"/>
+            <circle cx="142" cy="84" r="11" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/>
+            <circle cx="142" cy="84" r="6" fill="#b45309"/>
+            <ellipse cx="154" cy="56" rx="9" ry="5.5" fill="#ffdd55" opacity="0.75"/>
+          </svg>
+        </div>
+        <div class="car-info">
+          <p class="car-brand">Ford</p>
+          <p class="car-name">Ranger XLT 4x4</p>
+          <div class="car-specs">
+            <span class="spec"><strong>3.2D</strong> diesel</span>
+            <span class="spec"><strong>200</strong> cv</span>
+            <span class="spec"><strong>52k</strong> km</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">R$ 239.900<small>ou 72x de R$ 4.100</small></div>
+            <button class="buy-btn">Quero este</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="car-card">
+        <div class="car-img">
+          <span class="badge badge-new">Novo</span>
+          <svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="86" rx="78" ry="6" fill="rgba(0,0,0,0.12)"/>
+            <path d="M20 66 L32 40 L60 22 L120 22 L148 40 L160 66 Z" fill="#0369a1"/>
+            <path d="M36 40 L58 24 L122 24 L146 40 Z" fill="rgba(150,220,255,0.28)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+            <rect x="18" y="64" width="144" height="15" rx="3" fill="#075985"/>
+            <rect x="14" y="76" width="152" height="9" rx="2" fill="#0c4a6e"/>
+            <circle cx="44" cy="82" r="11" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <circle cx="44" cy="82" r="6" fill="#0369a1"/>
+            <circle cx="136" cy="82" r="11" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <circle cx="136" cy="82" r="6" fill="#0369a1"/>
+            <ellipse cx="148" cy="56" rx="9" ry="5.5" fill="#88ccff" opacity="0.9"/>
+            <text x="90" y="50" text-anchor="middle" fill="rgba(255,255,255,0.1)" font-size="7" font-family="sans-serif" letter-spacing="2">VOLVO</text>
+          </svg>
+        </div>
+        <div class="car-info">
+          <p class="car-brand">Volvo</p>
+          <p class="car-name">XC60 Recharge</p>
+          <div class="car-specs">
+            <span class="spec"><strong>PHEV</strong></span>
+            <span class="spec"><strong>340</strong> cv</span>
+            <span class="spec"><strong>0</strong> km</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">R$ 449.950<small>ou 84x de R$ 7.200</small></div>
+            <button class="buy-btn">Quero este</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<div class="banner">
+  <h2>FINANCIAMENTO SEM BUROCRACIA</h2>
+  <p>Simule agora e receba resposta em até 2 horas. Sem consulta ao SPC/Serasa na primeira análise.</p>
+  <button class="banner-btn">Simular agora</button>
+</div>
+
+<footer>
+  <div class="footer-logo">APEX<span>MOTORS</span></div>
+  <div class="footer-links">
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Termos de Uso</a>
+    <a href="#">Contato</a>
+  </div>
+  <p class="footer-copy">© 2026 ApexMotors · Curitiba, PR · CNPJ 00.000.000/0001-00 · ☎ (41) 3000-0000</p>
+</footer>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const label = document.getElementById('theme-label');
+  let isLight = false;
+
+  btn.addEventListener('click', () => {
+    isLight = !isLight;
+    document.body.classList.toggle('light', isLight);
+    label.textContent = isLight ? 'Claro' : 'Escuro';
+  });
+
+  function setFilter(el) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>
